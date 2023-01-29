@@ -8,7 +8,7 @@
   font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --header-bgc: #000;
-  --main-bgc: #999;
+  --main-bgc: #94a3b8;
   --book-bgc: green;
 }
 
@@ -53,11 +53,9 @@ body {
 
 button.add-new-book {
   position: absolute;
-  display: flex;
   background-color: var(--header-bgc);
   top: 8.5rem;
   left: 35vw;
-  justify-content: center;
   font-size: 18px;
   font-weight: bold;
   border: none;
@@ -68,6 +66,39 @@ button.add-new-book {
   min-width: 170px;
 }
 
-button:hover {
-  filter: brightness(85%);
+button.add-new-book:hover {
+  filter: brightness(65%);
+}
+
+.add-book-popup {
+  position: absolute;
+  top: 30%;
+  right: 50%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  transform: scale(0.1);
+  transition: transform 0.7s;
+}
+
+.add-book-popup p {
+  font-size: 30px;
+}
+
+.add-book-popup form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* To be used with JS to open form...*/
+.open-popup {
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
 }
