@@ -10,6 +10,7 @@
   --header-bgc: #000;
   --main-bgc: #94a3b8;
   --book-bgc: green;
+  --inputs-color: #eee;
 }
 
 body {
@@ -66,26 +67,43 @@ button.add-new-book {
   min-width: 170px;
 }
 
-button.add-new-book:hover {
-  filter: brightness(65%);
+button.add-new-book:focus {
+  outline: none;
+}
+
+button#new-book-btn:hover,
+button:hover {
+  background-color: white;
+  color: black;
 }
 
 .add-book-popup {
   position: absolute;
-  top: 30%;
-  right: 50%;
-  color: white;
+  top: 35%;
+  right: 50vw;
+  left: 50vw;
+  min-width: 300px;
+  min-height: 350px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   visibility: hidden;
   transform: scale(0.1);
-  transition: transform 0.7s;
+  transition: transform 0.4s;
+}
+
+.open-popup {
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .add-book-popup p {
   font-size: 30px;
+  font-weight: 650;
 }
 
 .add-book-popup form {
@@ -97,12 +115,76 @@ button.add-new-book:hover {
   gap: 10px;
 }
 
-/* To be used with JS to open form...*/
-.open-popup {
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
+.filter-opened {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: " ";
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .testing {
   border: 5px solid red;
+}
+
+input[type="text"],
+input[type="number"] {
+  margin-top: 5px;
+  background-color: var(--inputs-color);
+  border: 1px solid #d6d9dc;
+  border-radius: 5px;
+  width: 100%;
+  padding: 5px;
+  font-size: 18px;
+}
+
+button#new-book-btn {
+  background-color: var(--header-bgc);
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 40px;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid #d6d9dc;
+  /* Adjusts the position of the checkboxes on the text baseline */
+  vertical-align: -2px;
+  /* Set here so that Windows' High-Contrast Mode can override */
+  color: green;
+  background-color: var(--inputs-color);
+}
+input[type="checkbox"]::before {
+  content: "✔";
+  position: absolute;
+  font-size: 1.2em;
+  right: -1px;
+  top: -0.22em;
+  visibility: hidden;
+}
+
+input[type="checkbox"]:checked::before {
+  /* Use `visibility` instead of `display` to avoid recalculating layout */
+  visibility: visible;
+}
+
+.read-checkbox {
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  width: 100%;
+}
+
+.read-checkbox label {
+  font-size: 20px;
+  padding-right: 2rem;
 }

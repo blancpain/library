@@ -1,9 +1,10 @@
 // DOM selectors
 const mainElem = document.querySelector(".main");
 const newBookForm = document.querySelector("#add-book-form");
-const readCheckbox = document.querySelector("#read-checkbox");
+const readCheckbox = document.querySelector(".read-checkbox");
 const newBookSubmitButton = document.querySelector("#new-book-btn");
 const popup = document.querySelector(".add-book-popup");
+const filter = document.querySelector(".filter");
 // vars
 const myLibrary = [];
 
@@ -14,12 +15,7 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-// Book.prototype.bookInfo = function _() {
-//   return `${this.title} by ${this.author}, ${this.pages} pages, ${!this.read ? "not read yet" : "read"
-//     }`;
-// };
-
-function showBookElement(book, index) {
+function showBook(book, index) {
   const newBookElem = document.createElement("div");
   const bookTitle = document.createElement("div");
   bookTitle.textContent = `"${book.title}"`;
@@ -37,7 +33,14 @@ function showBookElement(book, index) {
   mainElem.appendChild(newBookElem);
 }
 
-function createBookElement(e) {
+function clearForm() {
+  newBookForm.children.title.value = "";
+  newBookForm.children.author.value = "";
+  newBookForm.children.pages.value = "";
+  readCheckbox.children.read.checked = false;
+}
+
+function createBook(e) {
   const title = newBookForm.children.title.value;
   const author = newBookForm.children.author.value;
   const pages = newBookForm.children.pages.value;
@@ -47,15 +50,31 @@ function createBookElement(e) {
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
     const index = myLibrary.length - 1;
-    showBookElement(newBook, index);
+    showBook(newBook, index);
+    // close popup & clear form
+    popup.classList.remove("open-popup");
+    filter.classList.toggle("filter-opened");
+    clearForm();
   }
 }
 
-// popup
+// open popup
 const addBookButton = document.querySelector(".add-new-book");
 addBookButton.addEventListener("click", () => {
   popup.classList.add("open-popup");
+  filter.classList.toggle("filter-opened");
 });
 
+// close popup w/ click & w/ ESC
+filter.addEventListener("click", () => {
+  popup.classList.remove("open-popup");
+  filter.classList.toggle("filter-opened");
+});
+window.addEventListener("keydown", (e) => {
+  if (popup.classList[1] === "open-popup" && e.key === "Escape") {
+    popup.classList.remove("open-popup");
+    filter.classList.toggle("filter-opened");
+  }
+});
 // create book
-newBookSubmitButton.addEventListener("click", createBookElement);
+newBookSubmitButton.addEventListener("click", createBook);
