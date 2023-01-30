@@ -1,25 +1,11 @@
+// DOM selectors
 const mainElem = document.querySelector(".main");
+const newBookForm = document.querySelector("#add-book-form");
+const readCheckbox = document.querySelector("#read-checkbox");
+const newBookSubmitButton = document.querySelector("#new-book-btn");
+const popup = document.querySelector(".add-book-popup");
+// vars
 const myLibrary = [];
-
-function addBookToDisplay() {
-  myLibrary.forEach((book) => {
-    const newBookElem = document.createElement("div");
-    const bookTitle = document.createElement("div");
-    bookTitle.textContent = `"${book.title}"`;
-    const bookAuthor = document.createElement("div");
-    bookAuthor.textContent = book.author;
-    const bookPages = document.createElement("div");
-    bookPages.textContent = book.pages;
-
-    newBookElem.classList.add("book");
-
-    newBookElem.appendChild(bookTitle);
-    newBookElem.appendChild(bookAuthor);
-    newBookElem.appendChild(bookPages);
-
-    mainElem.appendChild(newBookElem);
-  });
-}
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -28,26 +14,48 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.bookInfo = function _() {
-  return `${this.title} by ${this.author}, ${this.pages} pages, ${!this.read ? "not read yet" : "read"
-    }`;
-};
+// Book.prototype.bookInfo = function _() {
+//   return `${this.title} by ${this.author}, ${this.pages} pages, ${!this.read ? "not read yet" : "read"
+//     }`;
+// };
 
-function addBookToLibrary() {
-  const book = prompt("Book title? ");
-  const author = prompt("Author? ");
-  const pages = prompt("How many pages? ");
-  const read = prompt("Have you read the book? Y/N ");
-  const readFlag = read === "Y";
+function showBookElement(book, index) {
+  const newBookElem = document.createElement("div");
+  const bookTitle = document.createElement("div");
+  bookTitle.textContent = `"${book.title}"`;
+  const bookAuthor = document.createElement("div");
+  bookAuthor.textContent = book.author;
+  const bookPages = document.createElement("div");
+  bookPages.textContent = book.pages;
+  newBookElem.classList.add("book");
+  newBookElem.setAttribute("data-index", index);
+  newBookElem.appendChild(bookTitle);
+  newBookElem.appendChild(bookAuthor);
+  newBookElem.appendChild(bookPages);
 
-  const newBook = new Book(book, author, pages, readFlag);
-  myLibrary.push(newBook);
-  addBookToDisplay();
+  // TODO: add read/not-read toggle + remove button
+  mainElem.appendChild(newBookElem);
 }
-const popup = document.querySelector(".add-book-popup");
 
-// add book button JUST TESTING BELOW THAT IT WORKS...
+function createBookElement(e) {
+  const title = newBookForm.children.title.value;
+  const author = newBookForm.children.author.value;
+  const pages = newBookForm.children.pages.value;
+  const read = readCheckbox.children.read.checked !== false;
+  if (title !== "" && author !== "" && pages !== "") {
+    e.preventDefault();
+    const newBook = new Book(title, author, pages, read);
+    myLibrary.push(newBook);
+    const index = myLibrary.length - 1;
+    showBookElement(newBook, index);
+  }
+}
+
+// popup
 const addBookButton = document.querySelector(".add-new-book");
 addBookButton.addEventListener("click", () => {
   popup.classList.add("open-popup");
 });
+
+// create book
+newBookSubmitButton.addEventListener("click", createBookElement);

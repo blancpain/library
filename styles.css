@@ -102,3 +102,7 @@ button.add-new-book:hover {
   visibility: visible;
   transform: translate(-50%, -50%) scale(1);
 }
+
+.testing {
+  border: 5px solid red;
+}
