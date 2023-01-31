@@ -9,7 +9,7 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --header-bgc: #000;
   --main-bgc: #94a3b8;
-  --book-bgc: green;
+  --popup-and-book-bgc: #fff;
   --inputs-color: #eee;
 }
 
@@ -25,15 +25,16 @@ body {
   background-color: var(--header-bgc);
   color: white;
   padding: 1.5rem;
+  padding-left: 2rem;
 }
 
 .main {
   background-color: var(--main-bgc);
   flex: 1;
   width: 100%;
-  padding: 2.5rem;
+  padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 0.7fr));
   grid-auto-rows: min-content;
   gap: 25px;
 }
@@ -41,22 +42,38 @@ body {
 .book {
   height: 350px;
   margin-top: 4rem;
-  border: 1px solid black;
-  background-color: var(--book-bgc);
+  background-color: var(--popup-and-book-bgc);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
   font-size: 20px;
-  font-weight: 650;
+  font-weight: 550;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+  transition: all 400ms;
+}
+
+.book div {
+  min-width: 200px;
+}
+
+.book div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.book:hover {
+  transform: scale(1.05);
 }
 
 button.add-new-book {
   position: absolute;
   background-color: var(--header-bgc);
   top: 8.5rem;
-  left: 35vw;
+  left: 2rem;
   font-size: 18px;
   font-weight: bold;
   border: none;
@@ -71,10 +88,64 @@ button.add-new-book:focus {
   outline: none;
 }
 
-button#new-book-btn:hover,
-button:hover {
+button.add-new-book:hover {
   background-color: white;
   color: black;
+}
+
+button#new-book-btn:hover {
+  filter: brightness(60%);
+}
+
+.remove-button:hover,
+.toggle-read-button:hover {
+  filter: brightness(85%);
+}
+
+button#new-book-btn {
+  background-color: var(--header-bgc);
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 40px;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.remove-button {
+  background-color: #e11d48;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 60px;
+  cursor: pointer;
+}
+
+.toggle-read-button {
+  background-color: #fca5a5;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 60px;
+  cursor: pointer;
+}
+
+.bgc-read {
+  background-color: #4ade80;
+}
+
+.bgc-not-read {
+  background-color: #fca5a5;
+}
+
+.disableButtons {
+  pointer-events: none;
 }
 
 .add-book-popup {
@@ -86,7 +157,7 @@ button:hover {
   min-height: 350px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--popup-and-book-bgc);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -138,18 +209,6 @@ input[type="number"] {
   width: 100%;
   padding: 5px;
   font-size: 18px;
-}
-
-button#new-book-btn {
-  background-color: var(--header-bgc);
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  color: white;
-  border-radius: 20px;
-  padding: 10px 40px;
-  cursor: pointer;
-  min-width: 150px;
 }
 
 input[type="checkbox"] {
