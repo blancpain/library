@@ -22,17 +22,14 @@ function showBook(book, index) {
   const newBookElem = document.createElement("div");
   // book title
   const bookTitleContainer = document.createElement("div");
-  const bookTitleLabel = document.createElement("span");
   const bookTitle = document.createElement("span");
-  bookTitleLabel.textContent = "Title: ";
   bookTitle.textContent = `"${book.title}"`;
-  bookTitleContainer.appendChild(bookTitleLabel);
   bookTitleContainer.appendChild(bookTitle);
   // author
   const authorContainer = document.createElement("div");
   const authorLabel = document.createElement("span");
   const author = document.createElement("span");
-  authorLabel.textContent = "Author: ";
+  authorLabel.textContent = "by ";
   author.textContent = book.author;
   authorContainer.appendChild(authorLabel);
   authorContainer.appendChild(author);
@@ -40,10 +37,10 @@ function showBook(book, index) {
   const bookPagesContainer = document.createElement("div");
   const pagesLabel = document.createElement("span");
   const pages = document.createElement("span");
-  pagesLabel.textContent = "Pages: ";
+  pagesLabel.textContent = "pages";
   pages.textContent = book.pages;
-  bookPagesContainer.appendChild(pagesLabel);
   bookPagesContainer.appendChild(pages);
+  bookPagesContainer.appendChild(pagesLabel);
   // read & remove buttons
   const buttonContainer = document.createElement("div");
   const readToggleButton = document.createElement("button");
@@ -61,7 +58,6 @@ function showBook(book, index) {
 
   // add event listeners for buttons
   removeButton.addEventListener("click", () => {
-    console.log("HELLO");
     const bookIndex = Number(
       removeButton.parentElement.parentElement.getAttribute("data-index")
     );
