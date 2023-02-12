@@ -10,12 +10,14 @@ const addBookButton = document.querySelector(".add-new-book");
 const myLibrary = [];
 let index = 0;
 
-function Book(title, author, pages, read, index) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.index = index;
+class Book {
+  constructor(title, author, pages, read, index) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.index = index;
+  }
 }
 
 function showBook(book, index) {
